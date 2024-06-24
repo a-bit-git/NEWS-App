@@ -1,32 +1,46 @@
+
 import React, { useState, useEffect } from 'react';
 import Cards from './Cards';
-import articles from './mocdata'
+import articles from './mocdata';
 
 function Dashboard() {
   const [newslist, setNewslist] = useState(articles);
   const [category, setCategory] = useState('business'); // Set initial category to 'business'
+  const [currentPage, setCurrentPage] = useState(1);
+  const articlesPerPage = 12;
 
   const handleCategoryChange = (event) => {
     const newCategory = event.target.value.toLowerCase(); // Get the selected category from the dropdown
     setCategory(newCategory); // Set the new category
+    setCurrentPage(1); // Reset to the first page when the category changes
   };
 
-  const fetchData = (category) => {
-    setTimeout(async ()=>{
-      const response = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=da74144b0a4f42b5b871e5db39bfcbce`);
-      const data = await response.json();
-      setNewslist(data?.articles);
-    },500)
+  const fetchData = async (category) => {
+    const response = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=da74144b0a4f42b5b871e5db39bfcbce`);
+    const data = await response.json();
+    setNewslist(data?.articles);
   };
 
   useEffect(() => {
     fetchData(category); // Fetch data on initial render and whenever the category changes
   }, [category]); // Re-run the effect when the category changes
 
+  // Calculate the articles to display based on the current page
+  const indexOfLastArticle = currentPage * articlesPerPage;
+  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
+  const currentArticles = newslist.slice(indexOfFirstArticle, indexOfLastArticle);
+
+  // Handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(newslist.length / articlesPerPage);
+
   return (
     <>
       <div className="filter">
-        
         <div>
           <select className="category-selector" onChange={handleCategoryChange} value={category}>
             <option value="business">Business</option>
@@ -39,7 +53,7 @@ function Dashboard() {
         </div>
       </div>
       <div className="dashboard">
-        {newslist
+        {currentArticles
           .filter(article => article.urlToImage)
           .map((article, index) => (
             <Cards 
@@ -52,8 +66,17 @@ function Dashboard() {
             />
           ))}
       </div>
-
-      
+      <div className="pagination">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index + 1)}
+            className={currentPage === index + 1 ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </>
   );
 }
