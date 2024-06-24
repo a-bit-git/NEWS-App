@@ -11,11 +11,12 @@ function Dashboard() {
     setCategory(newCategory); // Set the new category
   };
 
-  const fetchData = async (category) => {
-    setNewslist([]); // Clear the current newslist
-    const response = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=da74144b0a4f42b5b871e5db39bfcbce`);
-    const data = await response.json();
-    setNewslist(data?.articles);
+  const fetchData = (category) => {
+    setTimeout(async ()=>{
+      const response = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=da74144b0a4f42b5b871e5db39bfcbce`);
+      const data = await response.json();
+      setNewslist(data?.articles);
+    },500)
   };
 
   useEffect(() => {
