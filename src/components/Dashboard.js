@@ -91,11 +91,7 @@ function Dashboard() {
   const [newslist, setNewslist] = useState(articles);
 
   const fetchData = () => {
-    setTimeout(async ()=>{
-      const response = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=da74144b0a4f42b5b871e5db39bfcbce`);
-      const data = await response.json();
-      setNewslist(data?.articles);
-    },500)
+      setNewslist([]);
   };
 
   useEffect(() => {
