@@ -4,7 +4,6 @@ const Home = () => {
     return (
         <div>
             <h2>Home Page</h2>
-            {/* Add home page content here */}
         </div>
     );
 };
