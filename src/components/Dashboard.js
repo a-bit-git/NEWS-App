@@ -67,10 +67,7 @@ function Dashboard() {
         {Array.from({ length: totalPages }, (K, index) => (
           <button
             key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={currentPage === index + 1 ? 'active' : ''}
-          >
-            {index + 1}
+            onClick={() => handlePageChange(index + 1)}>{index + 1}
           </button>
         ))}
       </div>
