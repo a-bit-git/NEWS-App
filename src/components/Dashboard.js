@@ -64,7 +64,7 @@ function Dashboard() {
           ))}
       </div>
       <div className="pagination">
-        {Array.from({ length: totalPages }, (_, index) => (
+        {Array.from({ length: totalPages }, (K, index) => (
           <button
             key={index}
             onClick={() => handlePageChange(index + 1)}
