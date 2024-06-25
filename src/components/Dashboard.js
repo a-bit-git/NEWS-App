@@ -1,16 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
 import Cards from './Cards';
 import articles from './mocdata';
 
 function Dashboard() {
   const [newslist, setNewslist] = useState(articles);
-  const [category, setCategory] = useState('business'); // Set initial category to 'business'
+  const [category, setCategory] = useState('business');
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 12;
 
   const handleCategoryChange = (event) => {
-    const newCategory = event.target.value.toLowerCase(); // Get the selected category from the dropdown
+    const newCategory = event.target.value.toLowerCase(); // Get the selected category from the dropdown clicked by user
     setCategory(newCategory); // Set the new category
     setCurrentPage(1); // Reset to the first page when the category changes
   };
@@ -41,16 +40,14 @@ function Dashboard() {
   return (
     <>
       <div className="filter">
-        <div>
-          <select className="category-selector" onChange={handleCategoryChange} value={category}>
-            <option value="business">Business</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="health">Health</option>
-            <option value="science">Science</option>
-            <option value="sports">Sports</option>
-            <option value="technology">Technology</option>
-          </select>
-        </div>
+        <select className="category-selector" onChange={handleCategoryChange} value={category}>
+          <option value="business">Business</option>
+          <option value="entertainment">Entertainment</option>
+          <option value="health">Health</option>
+          <option value="science">Science</option>
+          <option value="sports">Sports</option>
+          <option value="technology">Technology</option>
+        </select>
       </div>
       <div className="dashboard">
         {currentArticles
