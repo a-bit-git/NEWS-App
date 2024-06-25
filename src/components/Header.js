@@ -12,9 +12,11 @@ function Header() {
       <div className="tag-line"><h1>You need to KNOW...</h1></div>
 
       <div className="series icon">
+      <nav>
         <div className="home"><Link to="/">Home</Link></div>
         <div className="about"><Link to="/about">About</Link></div>
         <div className="help"><Link to="/help">Help</Link></div>
+      </nav>
       </div>
 
     </div>
